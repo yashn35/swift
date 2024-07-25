@@ -49,37 +49,37 @@ export default function Home() {
 
 	// --- ADDING USE MEMO ---
 
-	// const [isWebSocketConnected, setIsWebSocketConnected] = useState(false);  
+	const [isWebSocketConnected, setIsWebSocketConnected] = useState(false);  
 
-	// const [websocket, connectWebsocket] = useMemo(() => {
-	// 	const cartesia = new Cartesia({
-	// 	  apiKey: process.env.NEXT_PUBLIC_CARTESIA_API_KEY!,
-	// 	});
+	const [websocket, connectWebsocket] = useMemo(() => {
+		const cartesia = new Cartesia({
+		  apiKey: process.env.NEXT_PUBLIC_CARTESIA_API_KEY!,
+		});
 	  
-	// 	const ws = cartesia.tts.websocket({
-	// 	  container: "raw",
-	// 	  encoding: "pcm_f32le",
-	// 	  sampleRate: 44100,
-	// 	});
+		const ws = cartesia.tts.websocket({
+		  container: "raw",
+		  encoding: "pcm_f32le",
+		  sampleRate: 44100,
+		});
 	  
-	// 	const connect = () => ws.connect();
+		const connect = () => ws.connect();
 	  
-	// 	return [ws, connect];
-	//   }, []);
+		return [ws, connect];
+	  }, []);
 	  
-	//   const player = useMemo(() => new WebPlayer({ bufferDuration: 0.1 }), []);
+	  const player = useMemo(() => new WebPlayer({ bufferDuration: 0.1 }), []);
 
-	//   useEffect(() => {
-	// 	connectWebsocket().then(() => {
-	// 	  setIsWebSocketConnected(true);
-	// 	}).catch((error) => {
-	// 	  console.error("WebSocket connection failed:", error);
-	// 	});
+	  useEffect(() => {
+		connectWebsocket().then(() => {
+		  setIsWebSocketConnected(true);
+		}).catch((error) => {
+		  console.error("WebSocket connection failed:", error);
+		});
 	  
-	// 	return () => {
-	// 	  websocket.disconnect();
-	// 	};
-	//   }, [websocket, connectWebsocket]);
+		return () => {
+		  websocket.disconnect();
+		};
+	  }, [websocket, connectWebsocket]);
 
 	const handleVoiceSampleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		console.log("File input changed");
@@ -205,24 +205,24 @@ export default function Home() {
 				return prevMessages;
 			}
 
-			const cartesia = new Cartesia({
-				apiKey: process.env.NEXT_PUBLIC_CARTESIA_API_KEY!,
-			});
+			// const cartesia = new Cartesia({
+			// 	apiKey: process.env.NEXT_PUBLIC_CARTESIA_API_KEY!,
+			// });
 
-			const websocket = cartesia.tts.websocket({
-				container: "raw",
-				encoding: "pcm_f32le",
-				sampleRate: 44100,
-			});
+			// const websocket = cartesia.tts.websocket({
+			// 	container: "raw",
+			// 	encoding: "pcm_f32le",
+			// 	sampleRate: 44100,
+			// });
 
-			await websocket.connect();
+			// await websocket.connect();
 
-			if (!audioContextRef.current) {
-				audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
-				await audioContextRef.current.resume();
-			}
+			// if (!audioContextRef.current) {
+			// 	audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+			// 	await audioContextRef.current.resume();
+			// }
 
-			const player = new WebPlayer({bufferDuration: 0.1});
+			// const player = new WebPlayer({bufferDuration: 0.1});
 
 			const reader = response.body.getReader();
 			const decoder = new TextDecoder();
@@ -248,7 +248,6 @@ export default function Home() {
 					continue: true,
 				});
 
-				// await player.play(cartesiaResponse.source);
 				await player.play(cartesiaResponse.source);
 
 			}
@@ -264,7 +263,7 @@ export default function Home() {
 				continue: false,
 			});
 
-			websocket.disconnect();
+			// websocket.disconnect();
 
 			return [
 				...prevMessages,
